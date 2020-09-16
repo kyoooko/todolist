@@ -11,16 +11,20 @@
 <body>
   <div id="app">
    <h2>TODO LIST</h2>
+   <!-- リロードされて404エラーにならないようにするため -->
    <form v-on:submit.prevent>
      <input type="text" v-model="newItem">
      <button v-on:click="addItem">add</button>
    </form>
   
    <ul>
+     <!-- ★main.jsの配列todosのindexはここで取れる -->
      <li v-for="(todo,index) in todos">
        <input type="checkbox" v-model="todo.isDone">
        <!-- 完了済タスクに線を引く -->
+       <!-- doneはCSSクラス名。todo.isDoneがfalseならclass="done"となりfalseならclass=""となる -->
        <span v-bind:class="{done:todo.isDone}">{{ todo.item }}</span>
+       <!-- ★deleteボタンは複数あるのでどれか判別するために、deleteItemメソッドの引数にindexを足してどのdeleteか判別する -->
        <button v-on:click="deliteItem(index)">Delete</button>
      </li>
    </ul>
